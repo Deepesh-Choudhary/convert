@@ -24,7 +24,7 @@ string toBase10Core(const string &str, const int fromBase) {
  * in reverse order. Remainders are represented by digits and
  * alphabets.
  */
-string fromBase10Core(const string &str, const int toBase) {
+string fromBase10Core(const string &str, const int toBase, bool padOutput) {
     string result;
     int num = std::stoi(str);
 
@@ -37,5 +37,18 @@ string fromBase10Core(const string &str, const int toBase) {
         result = "0";
     
     std::reverse(result.begin(), result.end());
-    return result;
+
+    if(!padOutput)
+        return result;
+
+    //pad the output
+    string temp;
+    if(toBase == 2)                             //binary; chunks of 8 digits
+        temp = string(8 - (result.size() % 8), '0');
+    else if(toBase == 8 && result.size() < 3)   //octal; at least 3 digits
+        temp = string(3 - result.size(), '0');
+    else if(toBase == 16)                       //hexadecimal; chunks of 2 digits
+        temp = string(result.size() % 2, '0');
+
+    return temp+result;
 }

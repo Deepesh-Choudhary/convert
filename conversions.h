@@ -21,8 +21,9 @@ namespace BaseConversions {
      * 
      * @param str Input literals
      * @param toBase Base to convert to; base the input should be in
+     * @param padOutput If set to true, output is padded to match byte-size
      */
-    std::string fromBase10(const std::string &str, const int toBase);
+    std::string fromBase10(const std::string &str, const int toBase, bool padOutput = false);
 
     /**
      * Change the given string from given base to another base.
@@ -32,8 +33,9 @@ namespace BaseConversions {
      * @param str Input literals
      * @param fromBase Base to convert from; base the input is in
      * @param toBase Base to convert to; base the output should be in
+     * @param padOutput If set to true, output is padded to match byte-size(only for bases 2, 8 & 16)
      */
-    std::string changeBase(const std::string &str, const int fromBase, const int toBase);
+    std::string changeBase(const std::string &str, const int fromBase, const int toBase, bool padOutput = false);
 
     /**
      * Converts given binary string to a hexadecimal string.
@@ -42,9 +44,10 @@ namespace BaseConversions {
      * e.g. bin2hex("1010 1111") = "A F"
      * 
      * @param bin Binary literals
+     * @param padOutput If set to true, output is padded to match byte-size
      * @return Converted hexadecimal literals
      */
-    std::string bin2hex(const std::string &bin);
+    std::string bin2hex(const std::string &bin, bool padOutput = false);
 
     /**
      * Converts given binary string to a decimal string.
@@ -64,9 +67,10 @@ namespace BaseConversions {
      * e.g. dec2bin("15 7") = "1111 0111"
      * 
      * @param dec Decimal literals
+     * @param padOutput If set to true, output is padded to match byte-size
      * @return Converted decimal literals
      */
-    std::string dec2bin(const std::string &dec);
+    std::string dec2bin(const std::string &dec, bool padOutput = false);
 
     /**
      * Converts given decimal string to a hexadecimal string.
@@ -75,9 +79,10 @@ namespace BaseConversions {
      * e.g. dec2hex("65 255") = "41 FF"
      * 
      * @param dec Decimal literals
+     * @param padOutput If set to true, output is padded to match byte-size
      * @return Converted hexadecimal literals
      */
-    std::string dec2hex(const std::string &dec);
+    std::string dec2hex(const std::string &dec, bool padOutput = false);
 
     /**
      * Converts given hexadecimal string to a binary string.
@@ -86,9 +91,10 @@ namespace BaseConversions {
      * e.g. hex2bin("F 41") = "1111 01000001"
      * 
      * @param hex Hexadecimal literals
+     * @param padOutput If set to true, output is padded to match byte-size
      * @return Converted binary literals
      */
-    std::string hex2bin(const std::string &hex);
+    std::string hex2bin(const std::string &hex, bool padOutput = false);
 
     /**
      * Converts given hexadecimal string to a decimal string.

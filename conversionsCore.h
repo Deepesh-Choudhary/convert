@@ -17,6 +17,6 @@ std::string toBase10Core(const std::string &str, const int fromBase);
  * Any usage with wrong/unexpected input may cause your code to break.
  * Use BaseConversions::fromBase10() instead (see conversions.h).
  */
-std::string fromBase10Core(const std::string &str, const int toBase);
+std::string fromBase10Core(const std::string &str, const int toBase, bool padOutput = false);
 
 #endif
