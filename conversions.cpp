@@ -1,4 +1,5 @@
 #include "conversions.h"
+#include "mapping.h"
 
 #include <cstdlib>
 #include <string>
