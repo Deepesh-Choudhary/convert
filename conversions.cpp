@@ -1,5 +1,6 @@
 #include "conversions.h"
 #include "mapping.h"
+#include "split.h"
 
 #include <cstdlib>
 #include <string>
@@ -85,31 +86,4 @@ inline string hex2bin(string hex) {
 
 inline string hex2dec(string hex) {
     return BaseConversions::changeBase(hex, 16, 10);
-}
-
-static inline bool isSpace(char c) {
-    return isspace(c);
-}
-
-static inline bool notSpace(char c) {
-    return !isspace(c);
-}
-
-vector<string> split(string str) {
-    vector<string> words;
-
-    string::iterator start, end;
-    start = end = str.begin();
-
-    while(end != str.end()) {
-        start = find_if(end, str.end(), notSpace);
-        end = find_if(start, str.end(), isSpace);
-
-        if(start == str.end())
-            break;
-
-        words.push_back(string(start, end));
-    }
-
-    return words;
 }
