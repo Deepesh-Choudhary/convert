@@ -1,4 +1,5 @@
-OBJECTS = conversions.o mapping.o split.o conversionsCore.o test.o ArgParser.o
+OBJECTS = conversions.o mapping.o split.o conversionsCore.o test.o ArgParser.o \
+          ArgParseException.o
 CC = g++
 
 convert: $(OBJECTS)
@@ -10,6 +11,7 @@ mapping.o: mapping.cpp mapping.h
 split.o: split.cpp split.h
 test.o: test.cpp *.h
 ArgParser.o: ArgParser.cpp ArgParser.h split.h
+ArgParseException.o: ArgParseException.h
 
 .PHONY: clean
 clean:
