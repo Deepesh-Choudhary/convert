@@ -24,3 +24,7 @@ compile: $(OBJECTS)
 .PHONY: run
 run: convert
 	./convert
+
+.PHONY: test
+test: test.o
+	$(CC) -o convert $(OBJECTS)
