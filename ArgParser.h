@@ -131,6 +131,11 @@ private:
     void processOperand();
     void processSingleDash();
     void processDoubleDash();
+
+    bool isSwitch(char option);
+    bool isDataOpt(char option);
+
+    void addDataOptPair(std::string opt, std::string data);
 };
 
 #endif

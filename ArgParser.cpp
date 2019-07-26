@@ -1,4 +1,5 @@
 #include "ArgParser.h"
+#include "ArgParseException.h"
 
 #include <string>
 #include <vector>
@@ -103,4 +104,80 @@ vector<string> ArgParser::getAllOptions() const {
 
 inline vector<string> ArgParser::getOperands() const {
     return operands;
+}
+
+//private member functions
+inline void ArgParser::processOperand() {
+    operands.push_back(*commonIter++);
+}
+
+void ArgParser::processSingleDash() {
+    string arg = *commonIter;
+    string::const_iterator sIter = arg.begin() + 1;    //skip the '-'
+
+    while(sIter + 1 != arg.end()) {
+        if(!isSwitch(*sIter))
+            throw ArgParseException("Invalid switch: " + string(1, *sIter));
+
+        switchesSet.push_back(string(1, *sIter));
+        ++sIter;
+    }
+
+    ++sIter;    //last option; e.g. 'h' in '-gfh'
+
+    if(isSwitch(*sIter))
+        switchesSet.push_back(string(1, *sIter));
+    else if(isDataOpt(*sIter)) {
+        ++commonIter;
+        string data = *commonIter;
+
+        //if next argument is an option, set data to empty string
+        if(data[0] == '-')
+            data = "";
+
+        addDataOptPair(string(1, *sIter), data);  
+    } else
+        throw ArgParseException("Invalid option: " + string(1, *sIter));
+
+    ++commonIter;
+}
+
+void ArgParser::processDoubleDash() {
+    string arg = *commonIter;
+    string::const_iterator sIter = arg.begin();
+    string data, opt;
+
+    while(sIter != arg.end() && *sIter != '=')
+        opt += *sIter++;
+
+    if(sIter == arg.end()) {
+        switchesSet.push_back(opt);
+        return;
+    }
+
+    ++sIter;
+
+    while(sIter != arg.end())
+        data += *sIter;
+
+    addDataOptPair(opt, data);
+    ++commonIter;
+}
+
+inline bool ArgParser::isSwitch(const char option) {
+    return find(allSwitches.begin(), allSwitches.end(), option) != allSwitches.end();
+}
+
+inline bool ArgParser::isDataOpt(const char option) {
+    return find(allDataOpts.begin(), allDataOpts.end(), option) != allDataOpts.end();
+}
+
+void ArgParser::addDataOptPair(string opt, string data) {
+    //if option already exists, throw exception
+    for(std::pair<string, string> p : dataOptsSet)
+        if(p.first == opt)
+            throw ArgParseException("Re-occurence of data option");
+
+    //otherwise add the pair
+    dataOptsSet.push_back(std::make_pair(opt, data));
 }
