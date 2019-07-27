@@ -24,3 +24,7 @@ clean:
 
 .PHONY: compile
 compile: $(OBJECTS)
+
+.PHONY: run
+run: convert
+	./convert
