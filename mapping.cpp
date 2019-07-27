@@ -3,7 +3,7 @@
 #include <iostream>
 #include <cstdlib>
 
-int valueOf(char letter) {
+int valueOf(const char letter) {
     if(letter >= '0' && letter <= '9')
         return static_cast<int>(letter) - 48;
     else if(letter >= 'A' && letter <= 'Z')
@@ -16,7 +16,7 @@ int valueOf(char letter) {
     }
 }
 
-char letterFor(int value) {
+char letterFor(const int value) {
     if(value >= 0 && value <= 9)
         return static_cast<char>(value + 48);
     else if(value <= 35)

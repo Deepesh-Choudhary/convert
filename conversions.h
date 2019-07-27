@@ -4,18 +4,18 @@
 #include <string>
 
 namespace BaseConversions {
-    std::string toBase10(std::string str, int fromBase);
-    std::string fromBase10(std::string str, int toBase);
-    std::string changeBase(std::string str, int fromBase, int toBase);
+    std::string toBase10(const std::string &str, const int fromBase);
+    std::string fromBase10(const std::string &str, const int toBase);
+    std::string changeBase(const std::string &str, const int fromBase, const int toBase);
 
-    std::string bin2hex(std::string bin);
-    std::string bin2dec(std::string bin);
+    std::string bin2hex(const std::string &bin);
+    std::string bin2dec(const std::string &bin);
 
-    std::string dec2bin(std::string dec);
-    std::string dec2hex(std::string dec);
+    std::string dec2bin(const std::string &dec);
+    std::string dec2hex(const std::string &dec);
 
-    std::string hex2bin(std::string hex);
-    std::string hex2dec(std::string hex);
+    std::string hex2bin(const std::string &hex);
+    std::string hex2dec(const std::string &hex);
 }
 
 #endif

@@ -8,19 +8,18 @@
 using std::string;
 using std::vector;
 
-static inline bool isSpace(char c) {
+static inline bool isSpace(const char c) {
     return isspace(c);
 }
 
-static inline bool notSpace(char c) {
+static inline bool notSpace(const char c) {
     return !isspace(c);
 }
 
-vector<string> split(string str) {
+vector<string> split(const string &str) {
     vector<string> words;
 
-    string::iterator start, end;
-    start = end = str.begin();
+    string::const_iterator start = str.begin(), end = str.begin();
 
     while(end != str.end()) {
         start = find_if(end, str.end(), notSpace);

@@ -15,3 +15,6 @@ split.o: split.cpp split.h
 .PHONY: clean
 clean:
 	rm -rf $(OBJECTS) convert
+
+.PHONY: compile
+compile: $(OBJECTS)

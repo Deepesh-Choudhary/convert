@@ -1,7 +1,7 @@
 #ifndef MAPPING_H
 #define MAPPING_H
 
-int  valueOf(char letter);
-char letterFor(int value);
+int  valueOf(const char letter);
+char letterFor(const int value);
 
 #endif
