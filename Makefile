@@ -1,4 +1,4 @@
-OBJECTS = conversions.o mapping.o split.o conversionsCore.o
+OBJECTS = conversions.o mapping.o split.o conversionsCore.o test.o
 
 convert: $(OBJECTS)
 	g++ -o convert $(OBJECTS)
@@ -14,6 +14,9 @@ mapping.o: mapping.cpp mapping.h
 
 split.o: split.cpp split.h
 	g++ -c split.cpp
+
+test.o: test.cpp *.h
+	g++ -c test.cpp
 
 .PHONY: clean
 clean:
