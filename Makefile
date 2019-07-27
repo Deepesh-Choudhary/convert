@@ -3,7 +3,7 @@ OBJECTS = conversions.o mapping.o split.o conversionsCore.o
 convert: $(OBJECTS)
 	g++ -o convert $(OBJECTS)
 
-conversions.o: conversions.cpp conversionsCore.h split.h
+conversions.o: conversions.cpp conversions.h conversionsCore.h split.h
 	g++ -c conversions.cpp
 
 conversionsCore.o: conversionsCore.cpp mapping.h
