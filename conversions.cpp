@@ -1,6 +1,6 @@
 #include "conversions.h"
-#include "mapping.h"
 #include "split.h"
+#include "conversionsCore.h"
 
 #include <cstdlib>
 #include <string>
@@ -11,10 +11,6 @@
 
 using std::string;
 using std::vector;
-
-string toBase10Core(const string &str, const int fromBase);
-string fromBase10Core(const string &str, const int toBase);
-vector<string> split(const string &str);
 
 string BaseConversions::toBase10(const string &str, const int fromBase) {
     if(fromBase < 2) {

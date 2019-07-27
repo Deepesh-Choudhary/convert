@@ -1,10 +1,13 @@
-OBJECTS = conversions.o mapping.o split.o
+OBJECTS = conversions.o mapping.o split.o conversionsCore.o
 
 convert: $(OBJECTS)
 	g++ -o convert $(OBJECTS)
 
-conversions.o: conversions.cpp mapping.h split.h
+conversions.o: conversions.cpp conversionsCore.h split.h
 	g++ -c conversions.cpp
+
+conversionsCore.o: conversionsCore.cpp mapping.h
+	g++ -c conversionsCore.cpp
 
 mapping.o: mapping.cpp mapping.h
 	g++ -c mapping.cpp
