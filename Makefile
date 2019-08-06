@@ -1,9 +1,9 @@
 OBJECTS = conversions.o mapping.o split.o conversionsCore.o test.o ArgParser.o \
           ArgParseException.o convert.o
-CC = g++
+CXXFLAGS = -g
 
 convert: $(OBJECTS)
-	$(CC) -o convert $(OBJECTS)
+	$(CXX) -o convert $(OBJECTS)
 
 conversions.o: conversions.cpp conversions.h conversionsCore.h split.h
 conversionsCore.o: conversionsCore.cpp mapping.h
@@ -27,7 +27,7 @@ run: convert
 
 .PHONY: test
 test: test.o
-	$(CC) -o convert $(OBJECTS)
+	$(CXX) -o convert $(OBJECTS)
 
 .PHONY: binary
 binary: convert
