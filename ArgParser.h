@@ -29,7 +29,7 @@ public:
      *
      * e.g. ArgParser(argc, argv, "cgfTR", "hyIPo");
      */
-    ArgParser(const int argc, const char *argv[],
+    ArgParser(const int argc, char *argv[],
         const std::string switches, const std::string dataOptions);
 
     /**
@@ -44,7 +44,7 @@ public:
      * e.g. ArgParser ap; //empty-initialize
      *      ap(argc, argv, "cgfTR", "hyIPo");
      */
-    void operator()(const int argc, const char *argv[],
+    void operator()(const int argc, char *argv[],
         const std::string switches, const std::string dataOptions);
 
     /**

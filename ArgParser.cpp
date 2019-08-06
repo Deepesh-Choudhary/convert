@@ -11,7 +11,7 @@ using std::vector;
 ArgParser::ArgParser() : finalized(false) {
 }
 
-ArgParser::ArgParser(const int argc, const char *argv[],
+ArgParser::ArgParser(const int argc, char *argv[],
     const string switches, const string dataOptions)
     : allSwitches(switches), allDataOpts(dataOptions) {
 
@@ -22,7 +22,7 @@ ArgParser::ArgParser(const int argc, const char *argv[],
     finalized = true;
 }
 
-void ArgParser::operator()(const int argc, const char *argv[],
+void ArgParser::operator()(const int argc, char *argv[],
     const string switches, const string dataOptions) {
         if(!finalized) {
             for(int i = 0; i < argc; ++i)
@@ -79,7 +79,7 @@ string ArgParser::getDataForOpt(string option) const {
     //TODO:throw exception - no such option set
 }
 
-inline vector<string> ArgParser::getSwitches() const {
+vector<string> ArgParser::getSwitches() const {
     return switchesSet;
 }
 
@@ -102,7 +102,7 @@ vector<string> ArgParser::getAllOptions() const {
     return options;
 }
 
-inline vector<string> ArgParser::getOperands() const {
+vector<string> ArgParser::getOperands() const {
     return operands;
 }
 
