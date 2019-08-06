@@ -38,9 +38,10 @@ void ArgParser::operator()(const int argc, char *argv[],
 
 void ArgParser::parse() {
     ++commonIter;       //first arg is the program name
-    string arg = *commonIter;
+    string arg;
 
     while(commonIter != args.end()) {
+        arg = *commonIter;
         if(arg[0] != '-')               //matches 'op', 'f.txt' etc.
             processOperand();
         else if(arg.length() == 1)      //matches (only) '-'
@@ -84,10 +85,11 @@ vector<string> ArgParser::getSwitches() const {
 }
 
 vector<string> ArgParser::getDataOptions() const {
-    vector<string> dataOpts(dataOptsSet.size());
+    vector<string> dataOpts(dataOptsSet.size(), "");
+    int n = 0;
 
     for(std::pair<string, string> p : dataOptsSet)
-        dataOpts.push_back(p.first);
+        dataOpts[n++] = p.first;
 
     return dataOpts;
 }
@@ -114,6 +116,7 @@ inline void ArgParser::processOperand() {
 void ArgParser::processSingleDash() {
     string arg = *commonIter;
     string::const_iterator sIter = arg.begin() + 1;    //skip the '-'
+    bool theEnd = false;
 
     while(sIter + 1 != arg.end()) {
         if(!isSwitch(*sIter))
@@ -123,23 +126,34 @@ void ArgParser::processSingleDash() {
         ++sIter;
     }
 
-    ++sIter;    //last option; e.g. 'h' in '-gfh'
-
     if(isSwitch(*sIter))
         switchesSet.push_back(string(1, *sIter));
     else if(isDataOpt(*sIter)) {
         ++commonIter;
-        string data = *commonIter;
+        string data;
+        bool comeback = false;
 
-        //if next argument is an option, set data to empty string
-        if(data[0] == '-')
-            data = "";
+        if(commonIter != args.end()) {
+            data = *commonIter;
 
-        addDataOptPair(string(1, *sIter), data);  
+            //if next argument is an option, set data to empty string
+            if(data[0] == '-') {
+                data = "";
+                comeback = true;    //and we need to come back to process this option
+            }
+        } else {
+            data = "";  //no data provided with option
+            theEnd = true;  //and we have reached the end of args
+        }
+
+        addDataOptPair(string(1, *sIter), data);
+        if(comeback)
+            --commonIter;   //now process that option  
     } else
         throw ArgParseException("Invalid option: " + string(1, *sIter));
 
-    ++commonIter;
+    if(!theEnd)
+        ++commonIter;   //if it's not the end, move on to next arg
 }
 
 void ArgParser::processDoubleDash() {
