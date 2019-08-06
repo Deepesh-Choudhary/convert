@@ -28,3 +28,7 @@ run: convert
 .PHONY: test
 test: test.o
 	$(CC) -o convert $(OBJECTS)
+
+.PHONY: binary
+binary: convert
+	rm -rf $(OBJECTS)
