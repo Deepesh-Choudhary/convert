@@ -55,7 +55,7 @@ void ArgParser::parse() {
     }
 }
 
-inline bool ArgParser::isSwitchSet(string svitch) const {
+bool ArgParser::isSwitchSet(string svitch) const {
     return std::find(switchesSet.begin(), switchesSet.end(), svitch) != switchesSet.end();
 }
 
@@ -67,7 +67,7 @@ bool ArgParser::isDataOptSet(string dataOption) const {
     return false;
 }
 
-inline bool ArgParser::isSet(string option) const {
+bool ArgParser::isSet(string option) const {
     return isSwitchSet(option) || isDataOptSet(option);
 }
 
@@ -76,8 +76,7 @@ string ArgParser::getDataForOpt(string option) const {
         if(p.first == option)
             return p.second;
 
-    return "";
-    //TODO:throw exception - no such option set
+    throw ArgParseException("No such data option set: " + option);
 }
 
 vector<string> ArgParser::getSwitches() const {
