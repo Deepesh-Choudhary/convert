@@ -1,5 +1,5 @@
 OBJECTS = conversions.o mapping.o split.o conversionsCore.o test.o ArgParser.o \
-          ArgParseException.o convert.o
+          ArgParseException.o convert.o ArgParserCore.o
 CXXFLAGS = -g
 
 convert: $(OBJECTS)
@@ -11,6 +11,7 @@ mapping.o: mapping.cpp mapping.h
 split.o: split.cpp split.h
 test.o: test.cpp *.h
 ArgParser.o: ArgParser.cpp ArgParser.h split.h
+ArgParserCore.o: ArgParserCore.cpp ArgParser.h ArgParseException.h
 ArgParseException.o: ArgParseException.h
 convert.o: convert.cpp
 
