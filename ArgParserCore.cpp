@@ -66,9 +66,7 @@ void ArgParser::processDoubleDash() {
         opt += *sIter++;
 
     if(sIter == arg.end()) {
-        string opt_(opt);
-        switchesSet.push_back(opt_);
-        return;
+        switchesSet.push_back(string(opt));
     } else {
         ++sIter;    //skip the '='
 
@@ -76,8 +74,9 @@ void ArgParser::processDoubleDash() {
             data += *sIter++;
 
         addDataOptPair(opt, data);
-        ++commonIter;
     }
+
+    ++commonIter;
 }
 
 inline bool ArgParser::isSwitch(const char option) {
