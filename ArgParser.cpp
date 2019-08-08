@@ -37,7 +37,7 @@ void ArgParser::operator()(const int argc, char *argv[],
     }
 
 void ArgParser::parse() {
-    ++commonIter;       //first arg is the program name
+    ++commonIter;       //first arg is the program name, skip it
     string arg;
 
     while(commonIter != args.end()) {
@@ -118,6 +118,8 @@ void ArgParser::processSingleDash() {
     string::const_iterator sIter = arg.begin() + 1;    //skip the '-'
     bool theEnd = false;
 
+    //e.g. in '-gfwa', loop through all the switches until 'a',
+    //'a' it might be a data option!
     while(sIter + 1 != arg.end()) {
         if(!isSwitch(*sIter))
             throw ArgParseException("Invalid switch: " + string(1, *sIter));
@@ -158,7 +160,7 @@ void ArgParser::processSingleDash() {
 
 void ArgParser::processDoubleDash() {
     string arg = *commonIter;
-    string::const_iterator sIter = arg.begin();
+    string::const_iterator sIter = arg.begin() + 2;     //skip the '--'
     string data, opt;
 
     while(sIter != arg.end() && *sIter != '=')
@@ -166,16 +168,15 @@ void ArgParser::processDoubleDash() {
 
     if(sIter == arg.end()) {
         switchesSet.push_back(opt);
-        return;
+    } else {
+        ++sIter;    //skip the '='
+
+        while(sIter != arg.end())
+            data += *sIter++;
+
+        addDataOptPair(opt, data);
+        ++commonIter;
     }
-
-    ++sIter;
-
-    while(sIter != arg.end())
-        data += *sIter;
-
-    addDataOptPair(opt, data);
-    ++commonIter;
 }
 
 inline bool ArgParser::isSwitch(const char option) {
