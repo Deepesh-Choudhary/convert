@@ -25,17 +25,19 @@ void printUsage() {
 }
 
 void earlyExit(string msg, int returnCode) {
-    std::cerr << "Error: " << msg << endl;
+    std::cerr << "Error(" << returnCode << "): " << msg << endl;
     exit(returnCode);
 }
 
 int main(int argc, char *argv[]) {
+    using namespace BaseConversions;
+
     if(argc < 3) {
         printUsage();
         return 1;
     }
 
-    ArgParser ap(argc, argv, "", "");
+    ArgParser ap(argc, argv, "", "ft");
     try {
         ap.parse();
     } catch(ArgParseException ape) {
@@ -48,17 +50,39 @@ int main(int argc, char *argv[]) {
     string data = ap.getOperands().at(0), output;
     
     if(ap.isSwitchSet("bin2hex"))
-        output = BaseConversions::bin2hex(data);
+        output = bin2hex(data);
     else if(ap.isSwitchSet("bin2dec"))
-        output = BaseConversions::bin2dec(data);
+        output = bin2dec(data);
     else if(ap.isSwitchSet("dec2bin"))
-        output = BaseConversions::dec2bin(data);
+        output = dec2bin(data);
     else if(ap.isSwitchSet("dec2hex"))
-        output = BaseConversions::dec2hex(data);
+        output = dec2hex(data);
     else if(ap.isSwitchSet("hex2bin"))
-        output = BaseConversions::hex2bin(data);
+        output = hex2bin(data);
     else if(ap.isSwitchSet("hex2dec"))
-        output = BaseConversions::hex2dec(data);
+        output = hex2dec(data);
+    else if(ap.isDataOptSet("f") || ap.isDataOptSet("from") ||
+            ap.isDataOptSet("t") || ap.isDataOptSet("to")) {
+        int fromBase;
+        if(ap.isDataOptSet("f"))
+            fromBase = stoi(ap.getDataForOpt("f"));
+        else if(ap.isDataOptSet("from"))
+            fromBase = stoi(ap.getDataForOpt("from"));
+        else
+            fromBase = 10;
+
+        int toBase;
+        if(ap.isDataOptSet("t"))
+            toBase = stoi(ap.getDataForOpt("t"));
+        else if(ap.isDataOptSet("to"))
+            toBase = stoi(ap.getDataForOpt("to"));
+        else
+            toBase = 10;
+
+        output = changeBase(data, fromBase, toBase);
+    } else {
+        earlyExit("No bases specified", 4);
+    }
 
     cout << output << endl;
     return 0;
