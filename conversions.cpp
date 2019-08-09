@@ -83,4 +83,3 @@ string BaseConversions::hex2bin(const string &hex) {
 string BaseConversions::hex2dec(const string &hex) {
     return BaseConversions::changeBase(hex, 16, 10);
 }
-
