@@ -1,6 +1,5 @@
 #include <iostream>
 #include <string>
-#include <vector>
 
 #include "ArgParseException.h"
 #include "ArgParser.h"
@@ -9,10 +8,8 @@
 
 using std::cout;
 using std::cin;
-using std::cerr;
 using std::endl;
 using std::string;
-using std::vector;
 
 void printUsage() {
     cout <<
@@ -49,10 +46,21 @@ int main(int argc, char *argv[]) {
     if(ap.getOperands().size() > 1)
         earlyExit("Only one string of data expected", 3);
 
-    string data = ap.getOperands().at(0);
-    if(ap.isSwitchSet("bin2hex")) {
+    string data = ap.getOperands().at(0), output;
+    
+    if(ap.isSwitchSet("bin2hex"))
+        output = BaseConversions::bin2hex(data);
+    else if(ap.isSwitchSet("bin2dec"))
+        output = BaseConversions::bin2dec(data);
+    else if(ap.isSwitchSet("dec2bin"))
+        output = BaseConversions::dec2bin(data);
+    else if(ap.isSwitchSet("dec2hex"))
+        output = BaseConversions::dec2hex(data);
+    else if(ap.isSwitchSet("hex2bin"))
+        output = BaseConversions::hex2bin(data);
+    else if(ap.isSwitchSet("hex2dec"))
+        output = BaseConversions::hex2dec(data);
 
-    }
-
+    cout << output << endl;
     return 0;
 }
