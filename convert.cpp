@@ -4,7 +4,6 @@
 #include "ArgParseException.h"
 #include "ArgParser.h"
 #include "conversions.h"
-#include "test.h"
 
 using std::cout;
 using std::cin;
