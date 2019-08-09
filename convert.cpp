@@ -44,6 +44,8 @@ int main(int argc, char *argv[]) {
         earlyExit("APException: " + string(ape.what()), 2);
     }
 
+    if(ap.getOperands().size() == 0)
+        earlyExit("No data provided", 5);
     if(ap.getOperands().size() > 1)
         earlyExit("Only one string of data expected", 3);
 
