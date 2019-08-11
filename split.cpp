@@ -9,11 +9,11 @@ using std::string;
 using std::vector;
 
 static inline bool isSpace(const char c) {
-    return isspace(c);
+    return std::isspace(c);
 }
 
 static inline bool notSpace(const char c) {
-    return !isspace(c);
+    return !std::isspace(c);
 }
 
 vector<string> split(const string &str) {
@@ -22,8 +22,8 @@ vector<string> split(const string &str) {
     string::const_iterator start = str.begin(), end = str.begin();
 
     while(end != str.end()) {
-        start = find_if(end, str.end(), notSpace);
-        end = find_if(start, str.end(), isSpace);
+        start = std::find_if(end, str.end(), notSpace);
+        end = std::find_if(start, str.end(), isSpace);
 
         if(start == str.end())
             break;
