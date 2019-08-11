@@ -1,9 +1,8 @@
 #include "ArgParseException.h"
+
 #include <string>
 
-using std::string;
-
-ArgParseException::ArgParseException(string msg) {
+ArgParseException::ArgParseException(std::string msg) {
     this->msg = msg;
 }
 

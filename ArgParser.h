@@ -9,7 +9,7 @@
  * Parses the arguments given in initialization process to
  * seperate different types of options(switches, data options),
  * associate data to the data options etc.
- * Almost equivalent to getopt() in *nix.
+ * *Almost* equivalent to getopt() in *nix.
  */
 class ArgParser {
 public:
@@ -63,7 +63,7 @@ public:
      * @param svitch Switch to check
      * @return true if set false otherwise
      */
-    bool isSwitchSet(std::string svitch) const;
+    bool isSwitchSet(const std::string svitch) const;
 
     /**
      * Checks if the specified data option is set or not. The data option
@@ -72,7 +72,7 @@ public:
      * @param dataOption Option to check
      * @return true if set false otherwise
      */
-    bool isDataOptSet(std::string dataOption) const;
+    bool isDataOptSet(const std::string dataOption) const;
 
     /**
      * Checks if the specified option is set or not. Option can be switch
@@ -81,7 +81,7 @@ public:
      * @param option Option to check
      * @return true if set false otherwise
      */
-    bool isSet(std::string option) const;
+    bool isSet(const std::string option) const;
 
     /**
      * Returns the data provided with specified data option.
@@ -90,7 +90,7 @@ public:
      * @return Data provided with the option
      * @throws ArgParseException If the specified option is not a data option.
      */
-    std::string getDataForOpt(std::string option) const;
+    std::string getDataForOpt(const std::string option) const;
     
     /**
      * Returns a vector containing all single- and multi-letter switches.
@@ -128,14 +128,15 @@ private:
     std::vector<std::pair<std::string, std::string> > dataOptsSet;
     bool finalized;
 
+    //private member functions are defined in Core file
     void processOperand();
     void processSingleDash();
     void processDoubleDash();
 
-    bool isSwitch(char option);
-    bool isDataOpt(char option);
+    bool isSwitch(const char option);
+    bool isDataOpt(const char option);
 
-    void addDataOptPair(std::string opt, std::string data);
+    void addDataOptPair(const std::string &opt, const std::string &data);
 };
 
 #endif

@@ -4,6 +4,7 @@
 #include <string>
 #include <vector>
 #include <algorithm>
+#include <utility>      //for std::pair
 
 using std::string;
 using std::vector;
@@ -55,11 +56,11 @@ void ArgParser::parse() {
     }
 }
 
-bool ArgParser::isSwitchSet(string svitch) const {
+bool ArgParser::isSwitchSet(const string svitch) const {
     return std::find(switchesSet.begin(), switchesSet.end(), svitch) != switchesSet.end();
 }
 
-bool ArgParser::isDataOptSet(string dataOption) const {
+bool ArgParser::isDataOptSet(const string dataOption) const {
     for(std::pair<string, string> p : dataOptsSet)
         if(p.first == dataOption)
             return true;
@@ -67,11 +68,11 @@ bool ArgParser::isDataOptSet(string dataOption) const {
     return false;
 }
 
-bool ArgParser::isSet(string option) const {
+bool ArgParser::isSet(const string option) const {
     return isSwitchSet(option) || isDataOptSet(option);
 }
 
-string ArgParser::getDataForOpt(string option) const {
+string ArgParser::getDataForOpt(const string option) const {
     for(std::pair<string, string> p : dataOptsSet)
         if(p.first == option)
             return p.second;
@@ -84,11 +85,10 @@ vector<string> ArgParser::getSwitches() const {
 }
 
 vector<string> ArgParser::getDataOptions() const {
-    vector<string> dataOpts(dataOptsSet.size(), "");
-    int n = 0;
+    vector<string> dataOpts;
 
     for(std::pair<string, string> p : dataOptsSet)
-        dataOpts[n++] = p.first;
+        dataOpts.push_back(p.first);
 
     return dataOpts;
 }
@@ -96,7 +96,10 @@ vector<string> ArgParser::getDataOptions() const {
 vector<string> ArgParser::getAllOptions() const {
     vector<string> options;
 
+    //copy all switches
     std::copy(switchesSet.begin(), switchesSet.end(), std::back_inserter(options));
+
+    //copy all data options(only options, not their data)
     for(std::pair<string, string> p : dataOptsSet)
         options.push_back(p.first);
 
