@@ -1,6 +1,6 @@
 OBJECTS = conversions.o mapping.o split.o conversionsCore.o ArgParser.o \
           ArgParseException.o convert.o ArgParserCore.o
-CXXFLAGS = -g
+CXXFLAGS = -g -Wall -Wextra -Wshadow -pedantic
 
 convert: $(OBJECTS)
 	$(CXX) -o convert $(OBJECTS)

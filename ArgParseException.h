@@ -16,7 +16,7 @@ public:
      *
      * @param msg The message
      */
-    ArgParseException(std::string msg);
+    ArgParseException(std::string message);
     const char* what() const throw();
 
 private:

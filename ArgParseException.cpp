@@ -2,8 +2,8 @@
 
 #include <string>
 
-ArgParseException::ArgParseException(std::string msg) {
-    this->msg = msg;
+ArgParseException::ArgParseException(std::string message) {
+    this->msg = message;
 }
 
 const char* ArgParseException::what() const throw() {
