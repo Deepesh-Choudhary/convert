@@ -12,13 +12,23 @@ using std::string;
 
 void printUsage() {
     cout <<
-    "Usage: convert --<base1>2<base2> data\n"
+    "Usage: convert [baseOptions] [-P|--no-pad] data\n"
     "Convert data from one base to another.\n\n"
-    "<base> is one of the following:\n"
-    "    bin    binary; base 2 (digits: 0-1)\n"
-    "    dec    decimal; base 10 (digits: 0-9)\n"
-    "    hex    hexadecimal; base 16 (digits: 0-9,A-F)\n"
-    "NOTE: octal is not supported natively, but can be mimicked by converting to/from base 8.\n\n"
+    "baseOptions:\n"
+    "  -f <base>, --from=<base>  convert the data from given base to base 10\n"
+    "  -t <base>, --to=<base>    convert the data from base 10 to given base\n"
+    "  --<base1>to<base2>        convert data from & to predefined bases\n"
+    "NOTE: If --<base1>to<base2> option is not set, -t or -f or both HAVE to be set.\n"
+    "      If either is omitted, it is taken to be 10.\n\n"
+    "Predefined bases:\n"
+    "  bin    binary; base 2 (digits: 0-1)\n"
+    "  dec    decimal; base 10 (digits: 0-9)\n"
+    "  hex    hexadecimal; base 16 (digits: 0-9,A-F)\n"
+    "NOTE: octal is not supported natively, but the effect can be reproduced by\n"
+    "      converting to/from base 8.\n\n"
+    "Other options:\n"
+    "  -P, --no-pad  do NOT pad the output, default setting pads output\n"
+    "  -h, --help    show this help message\n\n"
     "e.g. convert --hex2bin E2F4\n"
     "       converts E2F4 to binary"
     << endl;
@@ -37,11 +47,16 @@ int main(int argc, char *argv[]) {
         return 1;
     }
 
-    ArgParser ap(argc, argv, "P", "ft");
+    ArgParser ap(argc, argv, "Ph", "ft");
     try {
         ap.parse();
     } catch(ArgParseException ape) {
         earlyExit("APException: " + string(ape.what()), 2);
+    }
+
+    if(ap.isSwitchSet("h") || ap.isSwitchSet("help")) {
+        printUsage();
+        return 0;
     }
 
     if(ap.getOperands().size() == 0)
