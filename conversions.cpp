@@ -80,8 +80,28 @@ string BaseConversions::bin2dec(const string &bin) {
     return BaseConversions::changeBase(bin, 2, 10);
 }
 
+string BaseConversions::bin2oct(const string &bin, bool padOutput) {
+    return BaseConversions::changeBase(bin, 2, 8, padOutput);
+}
+
+string BaseConversions::oct2bin(const string &oct, bool padOutput) {
+    return BaseConversions::changeBase(oct, 8, 2, padOutput);
+}
+
+string BaseConversions::oct2dec(const string &oct) {
+    return BaseConversions::changeBase(oct, 8, 10);
+}
+
+string BaseConversions::oct2hex(const string &oct, bool padOutput) {
+    return BaseConversions::changeBase(oct, 8, 16, padOutput);
+}
+
 string BaseConversions::dec2bin(const string &dec, bool padOutput) {
     return BaseConversions::changeBase(dec, 10, 2, padOutput);
+}
+
+string BaseConversions::dec2oct(const string &dec, bool padOutput) {
+    return BaseConversions::changeBase(dec, 10, 8, padOutput);
 }
 
 string BaseConversions::dec2hex(const string &dec, bool padOutput) {
@@ -91,6 +111,10 @@ string BaseConversions::dec2hex(const string &dec, bool padOutput) {
 //use dictionary instead?
 string BaseConversions::hex2bin(const string &hex, bool padOutput) {
     return BaseConversions::changeBase(hex, 16, 2, padOutput);
+}
+
+string BaseConversions::hex2oct(const string &hex, bool padOutput) {
+    return BaseConversions::changeBase(hex, 16, 8, padOutput);
 }
 
 string BaseConversions::hex2dec(const string &hex) {

@@ -23,9 +23,8 @@ void printUsage() {
     "Predefined bases:\n"
     "  bin    binary; base 2 (digits: 0-1)\n"
     "  dec    decimal; base 10 (digits: 0-9)\n"
-    "  hex    hexadecimal; base 16 (digits: 0-9,A-F)\n"
-    "NOTE: octal is not supported natively, but the effect can be reproduced by\n"
-    "      converting to/from base 8.\n\n"
+    "  hex    hexadecimal; base 16 (digits: 0-9,A-F/a-f)\n"
+    "  oct    octal; base 8 (digits: 1-8)\n\n"
     "Other options:\n"
     "  -P, --no-pad  do NOT pad the output, default setting pads output\n"
     "  -h, --help    show this help message\n\n"
@@ -74,14 +73,26 @@ int main(int argc, char *argv[]) {
     //pre-defined bases
     if(ap.isSwitchSet("bin2hex"))
         output = bin2hex(data, padOutput);
+    else if(ap.isSwitchSet("bin2oct"))
+        output = bin2oct(data, padOutput);
     else if(ap.isSwitchSet("bin2dec"))
         output = bin2dec(data);
+    else if(ap.isSwitchSet("oct2bin"))
+        output = oct2bin(data, padOutput);
+    else if(ap.isSwitchSet("oct2dec"))
+        output = oct2dec(data);
+    else if(ap.isSwitchSet("oct2hex"))
+        output = oct2hex(data, padOutput);
     else if(ap.isSwitchSet("dec2bin"))
         output = dec2bin(data, padOutput);
+    else if(ap.isSwitchSet("dec2oct"))
+        output = dec2oct(data, padOutput);
     else if(ap.isSwitchSet("dec2hex"))
         output = dec2hex(data, padOutput);
     else if(ap.isSwitchSet("hex2bin"))
         output = hex2bin(data, padOutput);
+    else if(ap.isSwitchSet("hex2oct"))
+        output = hex2oct(data, padOutput);
     else if(ap.isSwitchSet("hex2dec"))
         output = hex2dec(data);
     else if(ap.isDataOptSet("f") || ap.isDataOptSet("from") ||
