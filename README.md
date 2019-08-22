@@ -34,8 +34,8 @@ e.g. convert --hex2bin E2F4
 
 ### Contributing
 Contributions to this program are welcome in the form of pull requests.
-Contributers are requested to group the commits as individual units of features/fixes etc.
-The contribution will be acted upon within a week of pull request.
+Contributors are requested to group the commits as individual units of features/fixes etc.
+The contributions will be acted upon within a week of pull request.
 All the comments/replies to comments will also be replied to within a week.
 
 Feel free to suggest anything and star this repository ;).
